@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,6 +35,10 @@ namespace API_App
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API_App", Version = "v1" });
             });
             services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+
+            services.AddDbContext<CommanderDbContext>(options => options.UseSqlServer(
+              Configuration.GetConnectionString("DefaultConnection")
+               ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
