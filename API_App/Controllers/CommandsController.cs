@@ -1,5 +1,7 @@
 ﻿using API_App.Data;
+using API_App.DTOs;
 using API_App.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,26 +17,33 @@ namespace API_App.Controllers
     public class CommandsController : ControllerBase
     {
         private readonly ICommanderRepo _repo;
+        private readonly IMapper _mapper;
 
-        public CommandsController(ICommanderRepo repo)
+        public CommandsController(ICommanderRepo repo, IMapper mapper)
         {
             _repo= repo;
+            _mapper = mapper;
         }
       //  private readonly MockCommanderRepo _repo = new MockCommanderRepo();
         // GET: api/<CommandsController>
         [HttpGet]
-        public  IEnumerable<Command>  Get()
+        public ActionResult <IEnumerable<CommandReadDTO>>  Get()
         {
             var ListComand = _repo.GetAllCommand();
-            return ListComand;
+            return Ok(_mapper.Map<IEnumerable<CommandReadDTO>>(ListComand));
         }
 
         // GET api/<CommandsController>/5
         [HttpGet("{id}")]
-        public Command Get(int id)
+        public ActionResult <CommandReadDTO> Get(int id)
         {
             var com = _repo.GetCommandeById(id);
-            return com;
+            if (com !=null)
+            {
+
+               return Ok(_mapper.Map<CommandReadDTO>(com));
+            }
+            return NotFound();
         }
 
         // POST api/<CommandsController>

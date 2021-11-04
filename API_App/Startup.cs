@@ -34,7 +34,8 @@ namespace API_App
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API_App", Version = "v1" });
             });
-            // services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+            // injection de l'auto mapping de DTO
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
 
             services.AddDbContext<CommanderDbContext>(options => options.UseSqlServer(
