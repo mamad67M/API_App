@@ -34,7 +34,8 @@ namespace API_App
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API_App", Version = "v1" });
             });
-            services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+            // services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+            services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
 
             services.AddDbContext<CommanderDbContext>(options => options.UseSqlServer(
               Configuration.GetConnectionString("DefaultConnection")

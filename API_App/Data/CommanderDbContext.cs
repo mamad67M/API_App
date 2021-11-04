@@ -13,6 +13,6 @@ namespace API_App.Data
         {
 
         }
-        public DbSet<Command> commands { get; set; }
+        public DbSet<Command> Commands { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace API_App.Controllers
         [HttpGet]
         public  IEnumerable<Command>  Get()
         {
-            var ListComand = _repo.GetAppCommand();
+            var ListComand = _repo.GetAllCommand();
             return ListComand;
         }
 

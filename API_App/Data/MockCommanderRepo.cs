@@ -10,7 +10,7 @@ namespace API_App.Data
     {
 
 
-        public IEnumerable<Command> GetAppCommand()
+        public IEnumerable<Command> GetAllCommand()
         {
             var commands = new List<Command>()
             {
@@ -25,7 +25,7 @@ namespace API_App.Data
 
         public Command GetCommandeById(int id)
         {
-            var com = GetAppCommand().FirstOrDefault(c =>c.Id ==id);
+            var com = GetAllCommand().FirstOrDefault(c =>c.Id ==id);
             return com;
         }
 
