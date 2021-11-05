@@ -8,7 +8,10 @@ namespace API_App.Data
 {
     public class MockCommanderRepo : ICommanderRepo
     {
-
+        public void CreatCommand(Command cmd)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Command> GetAllCommand()
         {
@@ -29,6 +32,9 @@ namespace API_App.Data
             return com;
         }
 
-        
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

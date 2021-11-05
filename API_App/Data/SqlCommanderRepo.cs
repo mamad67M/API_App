@@ -14,6 +14,16 @@ namespace API_App.Data
         {
             _dbCtxt = dbCtxt;
         }
+
+        public void CreatCommand(Command cmd)
+        {
+            if (cmd == null)
+            {
+                throw new ArgumentNullException(nameof(cmd));
+            }
+            _dbCtxt.Commands.Add(cmd);
+        }
+
         public IEnumerable<Command> GetAllCommand()
         {
             return _dbCtxt.Commands.ToList();
@@ -22,6 +32,11 @@ namespace API_App.Data
         public Command GetCommandeById(int id)
         {
             return _dbCtxt.Commands.SingleOrDefault(o => o.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_dbCtxt.SaveChanges() >= 0);
         }
     }
 }

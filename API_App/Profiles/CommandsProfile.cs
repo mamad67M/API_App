@@ -12,7 +12,9 @@ namespace API_App.Profiles
     {
         public CommandsProfile()
         {
+           // source -> target
             CreateMap<Command, CommandReadDTO>();
+            CreateMap<CommandCreateDTO, Command>();
         }
     }
 }

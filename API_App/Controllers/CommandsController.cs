@@ -34,13 +34,12 @@ namespace API_App.Controllers
         }
 
         // GET api/<CommandsController>/5
-        [HttpGet("{id}")]
-        public ActionResult <CommandReadDTO> Get(int id)
+        [HttpGet("{id}", Name = "GetComById")]
+        public ActionResult <CommandReadDTO> GetComById(int id)
         {
             var com = _repo.GetCommandeById(id);
             if (com !=null)
             {
-
                return Ok(_mapper.Map<CommandReadDTO>(com));
             }
             return NotFound();
@@ -48,9 +47,15 @@ namespace API_App.Controllers
 
         // POST api/<CommandsController>
         [HttpPost]
-        public void Post([FromBody] Command c)
+        public ActionResult <CommandReadDTO> Post(CommandCreateDTO cmdCrtDTO)
         {
-             
+            var commandObj = _mapper.Map<Command>(cmdCrtDTO);
+             _repo.CreatCommand(commandObj);
+            _repo.SaveChanges();
+
+            var comReadDto = _mapper.Map<CommandReadDTO>(commandObj);
+            return CreatedAtRoute(nameof(GetComById), new {Id = cmdCrtDTO }, cmdCrtDTO);
+          //  return Ok(commandObj);
         }
 
         // PUT api/<CommandsController>/5
